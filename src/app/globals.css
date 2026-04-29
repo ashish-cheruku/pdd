@@ -1,0 +1,412 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   Theme tokens — light is default, .dark overrides.
+   We use semantic CSS variables so component classes and
+   page-level overrides switch cleanly.
+   ========================================================= */
+:root {
+  color-scheme: light;
+  --canvas: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #e6ebf2;
+  --fg: #0f172a;
+  --fg-2: rgba(15, 23, 42, 0.72);
+  --fg-3: rgba(15, 23, 42, 0.55);
+  --fg-4: rgba(15, 23, 42, 0.42);
+  --line: rgba(15, 23, 42, 0.10);
+  --line-2: rgba(15, 23, 42, 0.06);
+  --brand: #16a34a;
+  --brand-2: #22c55e;
+  --brand-text: #15803d;
+  --brand-tint: rgba(34, 197, 94, 0.12);
+  --brand-tint-strong: rgba(34, 197, 94, 0.18);
+  --brand-glow: 0 8px 24px -8px rgba(34, 197, 94, 0.45);
+}
+
+html.dark {
+  color-scheme: dark;
+  --canvas: #08080a;
+  --surface: #101013;
+  --surface-2: rgba(255, 255, 255, 0.04);
+  --surface-3: rgba(255, 255, 255, 0.06);
+  --fg: #f5f5f7;
+  --fg-2: rgba(255, 255, 255, 0.72);
+  --fg-3: rgba(255, 255, 255, 0.50);
+  --fg-4: rgba(255, 255, 255, 0.38);
+  --line: rgba(255, 255, 255, 0.10);
+  --line-2: rgba(255, 255, 255, 0.06);
+  --brand: #4ade80;
+  --brand-2: #22c55e;
+  --brand-text: #6ee79b;
+  --brand-tint: rgba(74, 222, 128, 0.10);
+  --brand-tint-strong: rgba(74, 222, 128, 0.18);
+  --brand-glow: 0 8px 30px -8px rgba(74, 222, 128, 0.40);
+}
+
+html,
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  background: var(--canvas);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--brand-tint-strong);
+  color: var(--fg);
+}
+
+input,
+select,
+textarea {
+  color-scheme: inherit;
+}
+
+/* =========================================================
+   Component classes
+   ========================================================= */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition;
+    background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+    color: #08080a;
+    box-shadow: var(--brand-glow);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #6ee79b 0%, #34d36a 100%);
+    transform: translateY(-1px);
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid #4ade80;
+    outline-offset: 2px;
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    transform: none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition;
+    color: var(--fg);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  html.dark .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .btn-secondary:hover {
+    border-color: rgba(15, 23, 42, 0.18);
+    background: var(--surface-2);
+  }
+  html.dark .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition;
+    color: var(--fg-2);
+  }
+  .btn-ghost:hover {
+    color: var(--fg);
+    background: var(--surface-2);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.04);
+  }
+  html.dark .card {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.015) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+      0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-hover {
+    transition:
+      transform 0.18s ease,
+      border-color 0.18s ease,
+      background 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    border-color: rgba(34, 197, 94, 0.30);
+    box-shadow:
+      0 0 0 1px rgba(34, 197, 94, 0.18),
+      0 16px 30px -16px rgba(34, 197, 94, 0.30);
+  }
+  html.dark .card-hover:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.025) 100%
+    );
+    border-color: rgba(74, 222, 128, 0.25);
+    box-shadow:
+      0 0 0 1px rgba(74, 222, 128, 0.15),
+      0 16px 40px -16px rgba(0, 0, 0, 0.7);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium;
+    color: var(--fg-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+
+  .chip-brand {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+    background: var(--brand-tint);
+    border: 1px solid rgba(34, 197, 94, 0.30);
+    color: var(--brand-text);
+  }
+
+  .input {
+    @apply w-full rounded-xl px-3 py-2.5 text-sm transition;
+    background: var(--surface);
+    color: var(--fg);
+    border: 1px solid var(--line);
+  }
+  html.dark .input {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .input::placeholder {
+    color: var(--fg-4);
+  }
+  .input:focus {
+    outline: none;
+    border-color: rgba(34, 197, 94, 0.45);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+  }
+
+  .label {
+    @apply block text-[10px] font-semibold uppercase tracking-[0.10em];
+    color: var(--fg-4);
+  }
+
+  .container-app {
+    @apply mx-auto w-full max-w-[1280px] px-6;
+  }
+
+  .glass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  html.dark .glass {
+    background: rgba(20, 20, 24, 0.55);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Range slider */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--surface-3);
+    border-radius: 999px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    background: var(--brand-2);
+    border: 2px solid var(--canvas);
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    background: var(--brand-2);
+    border: 2px solid var(--canvas);
+    cursor: pointer;
+  }
+
+  /* Atmosphere mesh — different per theme */
+  .bg-mesh {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(34, 197, 94, 0.12) 0%, transparent 60%),
+      radial-gradient(45% 40% at 92% 8%, rgba(56, 189, 248, 0.08) 0%, transparent 65%),
+      radial-gradient(50% 60% at 50% 110%, rgba(34, 197, 94, 0.08) 0%, transparent 60%),
+      var(--canvas);
+  }
+  html.dark .bg-mesh {
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(34, 197, 94, 0.18) 0%, transparent 60%),
+      radial-gradient(45% 40% at 92% 8%, rgba(56, 189, 248, 0.10) 0%, transparent 65%),
+      radial-gradient(50% 60% at 50% 110%, rgba(74, 222, 128, 0.10) 0%, transparent 60%),
+      #08080a;
+  }
+  .bg-mesh::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+        rgba(15, 23, 42, 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(60% 60% at 50% 30%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(60% 60% at 50% 30%, #000 40%, transparent 100%);
+    opacity: 0.5;
+  }
+  html.dark .bg-mesh::after {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+
+  /* Semantic helpers used by ThemeToggle */
+  .border-token { border-color: var(--line); }
+  .bg-surface { background: var(--surface); }
+  .bg-surface-2 { background: var(--surface-2); }
+  .text-fg { color: var(--fg); }
+  .text-fg-2 { color: var(--fg-2); }
+  .text-fg-3 { color: var(--fg-3); }
+}
+
+/* =========================================================
+   LIGHT-MODE OVERRIDES
+   The pages are written with dark-mode inline classes
+   (bg-white/X, text-white/X, border-white/X).
+   We re-map them in light mode so existing markup adapts.
+   ========================================================= */
+html:not(.dark) {
+  /* bg-white/X — translucent dark fills on light bg */
+  .bg-white\/\[0\.025\] { background-color: rgba(15, 23, 42, 0.04) !important; }
+  .bg-white\/\[0\.03\]  { background-color: rgba(15, 23, 42, 0.04) !important; }
+  .bg-white\/\[0\.04\]  { background-color: rgba(15, 23, 42, 0.05) !important; }
+  .bg-white\/\[0\.05\]  { background-color: rgba(15, 23, 42, 0.06) !important; }
+  .bg-white\/\[0\.06\]  { background-color: rgba(15, 23, 42, 0.06) !important; }
+  .bg-white\/\[0\.08\]  { background-color: rgba(15, 23, 42, 0.08) !important; }
+
+  /* solid bg-white stays white but lifts with subtle border */
+  /* (none needed — bg-white already pure white in tailwind) */
+
+  /* text-white/X */
+  .text-white                { color: #0f172a !important; }
+  .text-white\/95            { color: rgba(15, 23, 42, 0.95) !important; }
+  .text-white\/90            { color: rgba(15, 23, 42, 0.92) !important; }
+  .text-white\/85            { color: rgba(15, 23, 42, 0.88) !important; }
+  .text-white\/80            { color: rgba(15, 23, 42, 0.80) !important; }
+  .text-white\/75            { color: rgba(15, 23, 42, 0.78) !important; }
+  .text-white\/70            { color: rgba(15, 23, 42, 0.70) !important; }
+  .text-white\/65            { color: rgba(15, 23, 42, 0.66) !important; }
+  .text-white\/60            { color: rgba(15, 23, 42, 0.62) !important; }
+  .text-white\/55            { color: rgba(15, 23, 42, 0.58) !important; }
+  .text-white\/50            { color: rgba(15, 23, 42, 0.54) !important; }
+  .text-white\/45            { color: rgba(15, 23, 42, 0.48) !important; }
+  .text-white\/40            { color: rgba(15, 23, 42, 0.42) !important; }
+  .text-white\/35            { color: rgba(15, 23, 42, 0.38) !important; }
+
+  /* placeholder colors */
+  .placeholder-white\/35::placeholder { color: rgba(15, 23, 42, 0.40) !important; }
+
+  /* border-white/X */
+  .border-white\/\[0\.06\]   { border-color: rgba(15, 23, 42, 0.06) !important; }
+  .border-white\/\[0\.08\]   { border-color: rgba(15, 23, 42, 0.08) !important; }
+  .border-white\/10          { border-color: rgba(15, 23, 42, 0.10) !important; }
+  .border-white\/15          { border-color: rgba(15, 23, 42, 0.14) !important; }
+  .border-white\/20          { border-color: rgba(15, 23, 42, 0.18) !important; }
+
+  /* divide-white/X */
+  .divide-white\/\[0\.06\] > * + * { border-color: rgba(15, 23, 42, 0.08) !important; }
+  .divide-white\/\[0\.08\] > * + * { border-color: rgba(15, 23, 42, 0.10) !important; }
+
+  /* Brand-tinted text — emerald-300 on dark must darken on light */
+  .text-emerald-300          { color: #15803d !important; }
+  .text-emerald-200          { color: #166534 !important; }
+  .text-amber-300            { color: #b45309 !important; }
+  .text-sky-300              { color: #0369a1 !important; }
+  .text-rose-300             { color: #be123c !important; }
+  .text-rose-400             { color: #e11d48 !important; }
+
+  /* Chips that used dark glass on photos — keep frosted dark over images */
+  /* bg-black/45 stays black, only used over imagery — OK in light too */
+
+  /* Ink palette is inverted in tailwind config (designed for dark).
+     In light we re-flip the surfaces back to the correct semantic. */
+  .bg-ink-50                 { background-color: #f8fafc !important; }
+  .bg-ink-100                { background-color: #f1f5f9 !important; }
+  .bg-ink-200                { background-color: #e2e8f0 !important; }
+  .bg-ink-300                { background-color: #cbd5e1 !important; }
+  .bg-ink-900                { background-color: #0f172a !important; }
+
+  .text-ink-900              { color: #0f172a !important; }
+  .text-ink-800              { color: #1e293b !important; }
+  .text-ink-700              { color: #334155 !important; }
+  .text-ink-600              { color: #475569 !important; }
+  .text-ink-500              { color: #64748b !important; }
+  .text-ink-400              { color: #94a3b8 !important; }
+
+  .border-ink-200            { border-color: #e2e8f0 !important; }
+  .border-ink-300            { border-color: #cbd5e1 !important; }
+  .border-ink-100            { border-color: #f1f5f9 !important; }
+}
+
+/* The skip link (DfX: Accessibility) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 9999;
+  background: var(--fg);
+  color: var(--canvas);
+  padding: 12px 18px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* Subtle scrollbars */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--line);
+}
