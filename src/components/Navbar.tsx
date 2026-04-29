@@ -39,7 +39,7 @@ export default function Navbar() {
                 className={
                   "rounded-full px-4 py-1.5 text-sm font-medium transition " +
                   (active
-                    ? "bg-surface text-fg shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
+                    ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-900/5 dark:bg-[#1a1a1d] dark:text-white dark:ring-white/10 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
                     : "text-fg-3 hover:text-fg")
                 }
               >
