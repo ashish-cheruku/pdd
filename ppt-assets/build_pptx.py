@@ -292,16 +292,23 @@ def build_title():
               "line_spacing": 1.05})
 
     # ---- Subtitle ----
-    add_text(s, Inches(0.85), Inches(6.10), Inches(11.6), Inches(0.4),
+    add_text(s, Inches(0.85), Inches(6.05), Inches(11.6), Inches(0.4),
              {"text": "M4 Final Embodiment & Design Refinement",
               "size": 16, "color": INK_300})
 
+    # ---- Live demo pill ----
+    add_round(s, Inches(0.85), Inches(6.50), Inches(5.30), Inches(0.40),
+              BRAND_900, radius=0.5, line=BRAND_500, line_w=1.0)
+    add_runs(s, Inches(0.85), Inches(6.50), Inches(5.30), Inches(0.40),
+             [{"text": "🌐  LIVE DEMO  ", "size": 10, "bold": True,
+               "color": BRAND_400},
+              {"text": "https://pdd-azure.vercel.app",
+               "size": 11, "bold": True, "color": WHITE}],
+             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+
     # ---- Author + course ----
-    add_text(s, Inches(0.85), Inches(6.65), Inches(11.6), Inches(0.32),
-             {"text": "Ashish K. Cheruku  ·  2021B3AB1141P",
-              "size": 13, "bold": True, "color": WHITE})
-    add_text(s, Inches(0.85), Inches(7.00), Inches(11.6), Inches(0.32),
-             {"text": "PDD MF-F473  ·  Submitted to Prof. Hemant Sharma  ·  29 April 2026",
+    add_text(s, Inches(0.85), Inches(7.00), Inches(11.6), Inches(0.30),
+             {"text": "Ashish K. Cheruku  ·  2021B3AB1141P  ·  PDD MF-F473  ·  Submitted to Prof. Hemant Sharma  ·  29 Apr 2026",
               "size": 11, "color": INK_300})
 
 
@@ -679,13 +686,30 @@ def build_slide_4(page_total):
     add_text(s, Inches(0.85), Inches(1.05), Inches(8), Inches(0.35),
              {"text": "04 — FINAL EMBODIMENT DESIGN",
               "size": 11, "bold": True, "color": BRAND_600})
-    add_text(s, Inches(0.85), Inches(1.40), Inches(11.6), Inches(0.55),
+    add_text(s, Inches(0.85), Inches(1.40), Inches(8.5), Inches(0.55),
              {"text": "EcoRent v1 — built end-to-end in Next.js 14.",
               "size": 24, "bold": True, "color": INK_900,
               "line_spacing": 1.1})
-    add_text(s, Inches(0.85), Inches(2.00), Inches(11.6), Inches(0.30),
-             {"text": "Live demo follows. Below: four core screens, the final user flow and the architecture.",
+    add_text(s, Inches(0.85), Inches(2.00), Inches(8.5), Inches(0.30),
+             {"text": "Live demo deployed on Vercel. Below: four core screens, the final user flow and the architecture.",
               "size": 10.5, "color": INK_500})
+
+    # ---- Live demo URL callout (top-right) ----
+    demo_x = Inches(9.55)
+    demo_y = Inches(1.30)
+    demo_w = Inches(3.30)
+    demo_h = Inches(0.95)
+    add_round(s, demo_x, demo_y, demo_w, demo_h, INK_900, radius=0.06,
+              line=BRAND_500, line_w=1.25)
+    add_text(s, demo_x + Inches(0.20), demo_y + Inches(0.14),
+             demo_w - Inches(0.40), Inches(0.24),
+             {"text": "▶  TRY THE LIVE DEMO",
+              "size": 9.5, "bold": True, "color": BRAND_400})
+    add_text(s, demo_x + Inches(0.20), demo_y + Inches(0.40),
+             demo_w - Inches(0.40), Inches(0.40),
+             {"text": "pdd-azure.vercel.app",
+              "size": 16, "bold": True, "color": WHITE,
+              "line_spacing": 1.0})
 
     # ---- Top: 4 screen thumbnails ----
     sy = Inches(2.45)
