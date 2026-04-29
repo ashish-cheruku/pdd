@@ -247,69 +247,84 @@ def slide_chrome(slide, *, page_label, page_total, dark=False):
 # =========================================================
 def build_title():
     s = prs.slides.add_slide(BLANK)
-    add_rect(s, Emu(0), Emu(0), SW, SH, INK_900)
 
-    # Soft auroras
-    add_oval(s, Inches(-3.5), Inches(-3.5), Inches(11), Inches(11),
-             BRAND_700, alpha=0.20)
-    add_oval(s, Inches(8.5), Inches(3.0), Inches(7), Inches(7),
-             SKY_500, alpha=0.10)
+    # Deep solid background — no auroras (they render as flat discs in pptx)
+    add_rect(s, Emu(0), Emu(0), SW, SH, RGBColor(0x07, 0x09, 0x10))
 
-    # ---- Logo row (icon + wordmark side-by-side) ----
-    add_round(s, Inches(0.85), Inches(0.85), Inches(0.7), Inches(0.7),
+    # Brand accent strips (top + right edge — barely-there frame)
+    add_rect(s, Emu(0), Emu(0), SW, Inches(0.06), BRAND_500)
+    add_rect(s, SW - Inches(0.06), Emu(0), Inches(0.06), SH, BRAND_500)
+
+    # ---- Top bar: logo (left) + course chip (right) ----
+    add_round(s, Inches(0.85), Inches(0.55), Inches(0.55), Inches(0.55),
               BRAND_500, radius=0.25)
-    add_text(s, Inches(0.85), Inches(0.85), Inches(0.7), Inches(0.7),
-             {"text": "▲", "size": 30, "bold": True, "color": INK_900,
+    add_text(s, Inches(0.85), Inches(0.55), Inches(0.55), Inches(0.55),
+             {"text": "▲", "size": 22, "bold": True, "color": INK_900,
               "align": PP_ALIGN.CENTER},
              anchor=MSO_ANCHOR.MIDDLE)
-    add_runs(s, Inches(1.70), Inches(0.85), Inches(4.0), Inches(0.7),
-             [{"text": "Eco", "size": 28, "bold": True, "color": WHITE},
-              {"text": "Rent", "size": 28, "bold": True, "color": BRAND_400}],
+    add_runs(s, Inches(1.55), Inches(0.55), Inches(3.5), Inches(0.55),
+             [{"text": "Eco", "size": 22, "bold": True, "color": WHITE},
+              {"text": "Rent", "size": 22, "bold": True, "color": BRAND_400}],
              anchor=MSO_ANCHOR.MIDDLE)
 
-    # ---- Pill chip ----
-    add_round(s, Inches(0.85), Inches(2.30), Inches(4.05), Inches(0.45),
-              BRAND_900, radius=0.5)
-    add_text(s, Inches(0.85), Inches(2.30), Inches(4.05), Inches(0.45),
-             {"text": "● Trust-First Hyper-Local Marketplace",
-              "size": 12, "bold": True, "color": BRAND_100,
+    tag_w = Inches(3.10)
+    tag_x = SW - tag_w - Inches(0.85)
+    add_round(s, tag_x, Inches(0.66), tag_w, Inches(0.36),
+              DARK_PANEL, radius=0.5, line=INK_700, line_w=0.75)
+    add_text(s, tag_x, Inches(0.66), tag_w, Inches(0.36),
+             {"text": "PDD MF-F473  ·  MILESTONE 4",
+              "size": 10, "bold": True, "color": INK_300,
               "align": PP_ALIGN.CENTER},
              anchor=MSO_ANCHOR.MIDDLE)
 
-    # ---- Hero — three separate textboxes, no wrapping surprises ----
-    add_text(s, Inches(0.85), Inches(2.95), Inches(11.6), Inches(0.95),
+    # ---- Center stage: chip → hero → subtitle → demo pill ----
+    chip_w = Inches(4.50)
+    chip_x = (SW - chip_w) / 2
+    add_round(s, chip_x, Inches(2.20), chip_w, Inches(0.42),
+              BRAND_900, radius=0.5, line=BRAND_700, line_w=0.75)
+    add_text(s, chip_x, Inches(2.20), chip_w, Inches(0.42),
+             {"text": "●  TRUST-FIRST HYPER-LOCAL MARKETPLACE",
+              "size": 11, "bold": True, "color": BRAND_400,
+              "align": PP_ALIGN.CENTER},
+             anchor=MSO_ANCHOR.MIDDLE)
+
+    # Hero — TWO tight lines, centered
+    add_text(s, Emu(0), Inches(2.95), SW, Inches(0.95),
              {"text": "Share the adventure.",
-              "size": 44, "bold": True, "color": WHITE,
-              "line_spacing": 1.05})
-    add_text(s, Inches(0.85), Inches(3.95), Inches(11.6), Inches(0.95),
-             {"text": "Rent outdoor gear",
-              "size": 44, "bold": True, "color": BRAND_400,
-              "line_spacing": 1.05})
-    add_text(s, Inches(0.85), Inches(4.95), Inches(11.6), Inches(0.95),
-             {"text": "from your neighbours.",
-              "size": 44, "bold": True,
-              "color": RGBColor(0x9C, 0xA3, 0xAF),
-              "line_spacing": 1.05})
+              "size": 48, "bold": True, "color": WHITE,
+              "line_spacing": 1.0, "align": PP_ALIGN.CENTER})
+    add_text(s, Emu(0), Inches(3.85), SW, Inches(0.95),
+             {"text": "Rent gear from your neighbours.",
+              "size": 48, "bold": True, "color": BRAND_400,
+              "line_spacing": 1.0, "align": PP_ALIGN.CENTER})
 
-    # ---- Subtitle ----
-    add_text(s, Inches(0.85), Inches(6.05), Inches(11.6), Inches(0.4),
-             {"text": "M4 Final Embodiment & Design Refinement",
-              "size": 16, "color": INK_300})
+    # Subtitle
+    add_text(s, Emu(0), Inches(5.05), SW, Inches(0.40),
+             {"text": "M4 Final Embodiment  ·  Design Refinement & Validation",
+              "size": 15, "color": INK_300, "align": PP_ALIGN.CENTER})
 
-    # ---- Live demo pill ----
-    add_round(s, Inches(0.85), Inches(6.50), Inches(5.30), Inches(0.40),
-              BRAND_900, radius=0.5, line=BRAND_500, line_w=1.0)
-    add_runs(s, Inches(0.85), Inches(6.50), Inches(5.30), Inches(0.40),
-             [{"text": "🌐  LIVE DEMO  ", "size": 10, "bold": True,
+    # Live demo pill (centered)
+    pill_w = Inches(5.20)
+    pill_x = (SW - pill_w) / 2
+    add_round(s, pill_x, Inches(5.75), pill_w, Inches(0.52),
+              DARK_PANEL, radius=0.5, line=BRAND_500, line_w=1.25)
+    add_runs(s, pill_x, Inches(5.75), pill_w, Inches(0.52),
+             [{"text": "▶  LIVE DEMO  ", "size": 11, "bold": True,
                "color": BRAND_400},
               {"text": "https://pdd-azure.vercel.app",
-               "size": 11, "bold": True, "color": WHITE}],
+               "size": 13, "bold": True, "color": WHITE}],
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 
-    # ---- Author + course ----
-    add_text(s, Inches(0.85), Inches(7.00), Inches(11.6), Inches(0.30),
-             {"text": "Ashish K. Cheruku  ·  2021B3AB1141P  ·  PDD MF-F473  ·  Submitted to Prof. Hemant Sharma  ·  29 Apr 2026",
-              "size": 11, "color": INK_300})
+    # ---- Bottom: separator + byline ----
+    add_rect(s, Inches(0.85), Inches(6.78), Inches(11.6),
+             Emu(int(0.012 * 914400)), INK_700)
+    add_text(s, Emu(0), Inches(6.95), SW, Inches(0.30),
+             {"text": "Ashish K. Cheruku",
+              "size": 12, "bold": True, "color": WHITE,
+              "align": PP_ALIGN.CENTER})
+    add_text(s, Emu(0), Inches(7.22), SW, Inches(0.28),
+             {"text": "2021B3AB1141P  ·  Submitted to Prof. Hemant Sharma  ·  29 April 2026",
+              "size": 10, "color": INK_500, "align": PP_ALIGN.CENTER})
 
 
 # =========================================================
